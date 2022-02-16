@@ -1,0 +1,22 @@
+{
+  "files": {
+    "app.js": "/react-native-first/static/js/app.b15f961b.chunk.js",
+    "app.js.map": "/react-native-first/static/js/app.b15f961b.chunk.js.map",
+    "runtime~app.js": "/react-native-first/static/js/runtime~app.fcc6f3ec.js",
+    "runtime~app.js.map": "/react-native-first/static/js/runtime~app.fcc6f3ec.js.map",
+    "static/js/2.300ca768.chunk.js": "/react-native-first/static/js/2.300ca768.chunk.js",
+    "static/js/2.300ca768.chunk.js.map": "/react-native-first/static/js/2.300ca768.chunk.js.map",
+    "favicon-16.png": "/react-native-first/favicon-16.png",
+    "favicon-32.png": "/react-native-first/favicon-32.png",
+    "favicon.ico": "/react-native-first/favicon.ico",
+    "index.html": "/react-native-first/index.html",
+    "manifest.json": "/react-native-first/manifest.json",
+    "serve.json": "/react-native-first/serve.json",
+    "static/js/2.300ca768.chunk.js.LICENSE.txt": "/react-native-first/static/js/2.300ca768.chunk.js.LICENSE.txt"
+  },
+  "entrypoints": [
+    "static/js/runtime~app.fcc6f3ec.js",
+    "static/js/2.300ca768.chunk.js",
+    "static/js/app.b15f961b.chunk.js"
+  ]
+}

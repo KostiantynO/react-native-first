@@ -11,7 +11,7 @@ import {
 } from 'react-native';
 import { styles } from './App.styles';
 
-export default App = () => {
+const App = () => {
   const [name, setName] = useState('');
   const [password, setPassword] = useState('');
 
@@ -50,3 +50,5 @@ export default App = () => {
     </TouchableWithoutFeedback>
   );
 };
+
+export default App;

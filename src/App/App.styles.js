@@ -7,15 +7,16 @@ export const styles = StyleSheet.create({
     flex: 1,
     ...Platform.select({
       ios: {
-        backgroundColor: '#000000',
+        backgroundColor: '#888888',
       },
       android: {
-        backgroundColor: '#ecf0f1',
+        backgroundColor: '#eeeeee',
       },
     }),
 
     alignItems: 'center',
     justifyContent: 'center',
+    padding: 36,
   },
 
   title: {
@@ -43,5 +44,10 @@ export const styles = StyleSheet.create({
 
   text: {
     fontSize: 30,
+  },
+
+  status: {
+    padding: 10,
+    textAlign: 'center',
   },
 });

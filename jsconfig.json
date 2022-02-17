@@ -1,0 +1,13 @@
+{
+  "compilerOptions": {
+    "paths": {
+      "src/*": ["./src/*"]
+    },
+
+    "module": "CommonJS",
+    "target": "ES2021",
+    "jsx": "react-native",
+    "strictFunctionTypes": true
+  },
+  "exclude": ["node_modules", "**/node_modules/*", "build", "web-build"]
+}

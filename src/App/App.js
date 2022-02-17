@@ -57,67 +57,73 @@ export const App = () => {
   console.log('App ~ width', width);
 
   return (
-    <View>
-      <TouchableWithoutFeedback onPress={Keyboard.dismiss}>
-        <ScrollView style={[styles.scrollView, styles.container]}>
+    <TouchableWithoutFeedback onPress={Keyboard.dismiss}>
+      <View>
+        <ScrollView contentContainerStyle={styles.scrollView}>
           <KeyboardAvoidingView
             // behavior={Platform.OS == 'ios' ? 'padding' : 'height'}
             behavior={Platform.OS == 'ios' && 'padding'}
           >
-            <Cat />
-            <ClassCat />
-            <Image source={IMAGES.reactLogo} style={styles.reactLogo} />
-            <Image source={IMAGES.reactLogo} style={styles.reactLogo} />
-            <Image source={IMAGES.reactLogo} style={styles.reactLogo} />
+            <View style={styles.container}>
+              <Cat />
+              <ClassCat />
+              <Image source={IMAGES.reactLogo} style={styles.reactLogo} />
+              <Image source={IMAGES.reactLogo} style={styles.reactLogo} />
+              <Image source={IMAGES.reactLogo} style={styles.reactLogo} />
 
-            <Image source={IMAGES.reactLogo} style={styles.reactLogo} />
+              <Image source={IMAGES.reactLogo} style={styles.reactLogo} />
 
-            <Image source={IMAGES.reactLogo} style={styles.reactLogo} />
+              <Image source={IMAGES.reactLogo} style={styles.reactLogo} />
 
-            <TextInput
-              value={username}
-              onChangeText={e =>
-                dispatch({ type: actions.username, payload: e })
-              }
-              maxLength={21}
-              placeholder="Username"
-              style={styles.input}
-            />
-            <TextInput
-              value={password}
-              onChangeText={e =>
-                dispatch({ type: actions.password, payload: e })
-              }
-              maxLength={30}
-              placeholder="Password"
-              secureTextEntry
-              style={styles.input}
-            />
-            <Button title="Login" style={styles.input} onPress={onLogin} />
-            <Button
-              title={`${count}`}
-              onPress={() => dispatch({ type: actions.increment, payload: 1 })}
-            />
-            <Button
-              title={`${count}`}
-              onPress={() => dispatch({ type: actions.decrement, payload: 1 })}
-            />
-            <Text>Platform Default</Text>
+              <TextInput
+                value={username}
+                onChangeText={e =>
+                  dispatch({ type: actions.username, payload: e })
+                }
+                maxLength={21}
+                placeholder="Username"
+                style={styles.input}
+              />
+              <TextInput
+                value={password}
+                onChangeText={e =>
+                  dispatch({ type: actions.password, payload: e })
+                }
+                maxLength={30}
+                placeholder="Password"
+                secureTextEntry
+                style={styles.input}
+              />
+              <Button title="Login" style={styles.input} onPress={onLogin} />
+              <Button
+                title={`${count}`}
+                onPress={() =>
+                  dispatch({ type: actions.increment, payload: 1 })
+                }
+              />
+              <Button
+                title={`${count}`}
+                onPress={() =>
+                  dispatch({ type: actions.decrement, payload: 1 })
+                }
+              />
+              <Text>Platform Default</Text>
 
-            <Text style={styles.textMain}>Roboto-Regular</Text>
-            <Text style={styles.textBold}>Roboto-Bold</Text>
-            <Text style={styles.textCalligraphy}>
-              Hello World! I&apos;m Zapfino font
-            </Text>
-            <Text style={styles.status}>{keyboardStatus}</Text>
+              <Text style={styles.textMain}>Roboto-Regular</Text>
+              <Text style={styles.textBold}>Roboto-Bold</Text>
+              <Text style={styles.textCalligraphy}>
+                Hello World! I&apos;m Zapfino font
+              </Text>
+              <Text style={styles.status}>{keyboardStatus}</Text>
+            </View>
           </KeyboardAvoidingView>
         </ScrollView>
         <ImageBackground
           source={IMAGES.mainBgImage}
-          style={[styles.mainBgImage, { width, height }]}
+          style={{ ...styles.mainBgImage, ...{ width, height } }}
         />
-      </TouchableWithoutFeedback>
-    </View>
+      </View>
+    </TouchableWithoutFeedback>
   );
 };
 

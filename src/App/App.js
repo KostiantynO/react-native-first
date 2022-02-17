@@ -13,6 +13,10 @@ import {
   Alert,
   Button,
   Text,
+  Image,
+  ImageBackground,
+  Dimensions,
+  ScrollView,
 } from 'react-native';
 
 import { actions } from 'src/common';
@@ -30,12 +34,16 @@ const INITIAL_STATE = Object.freeze({
   keyboardStatus: undefined,
 });
 
+const IMAGES = {
+  reactLogo: { uri: 'https://reactjs.org/logo-og.png' },
+  mainBgImage: { uri: 'https://reactjs.org/logo-og.png' },
+};
+
 export const App = () => {
   const [{ appIsReady, username, password, count, keyboardStatus }, dispatch] =
     useReducer(appReducer, { ...INITIAL_STATE });
-
   useLoadAssets(dispatch);
-  useKeyboard(keyboardStatus, dispatch);
+  useKeyboard(dispatch);
 
   if (!appIsReady) {
     return <AppLoading />;
@@ -45,53 +53,71 @@ export const App = () => {
     Alert.alert('Credentials', `${username} + ${password}`);
   };
 
+  const { width, height } = Dimensions.get('window');
+  console.log('App ~ width', width);
+
   return (
-    <TouchableWithoutFeedback onPress={Keyboard.dismiss}>
-      <View style={styles.container}>
-        <KeyboardAvoidingView
-          // behavior={Platform.OS == 'ios' ? 'padding' : 'height'}
-          behavior={Platform.OS == 'ios' && 'padding'}
-        >
-          <Cat />
-          <ClassCat />
+    <View>
+      <TouchableWithoutFeedback onPress={Keyboard.dismiss}>
+        <ScrollView style={[styles.scrollView, styles.container]}>
+          <KeyboardAvoidingView
+            // behavior={Platform.OS == 'ios' ? 'padding' : 'height'}
+            behavior={Platform.OS == 'ios' && 'padding'}
+          >
+            <Cat />
+            <ClassCat />
+            <Image source={IMAGES.reactLogo} style={styles.reactLogo} />
+            <Image source={IMAGES.reactLogo} style={styles.reactLogo} />
+            <Image source={IMAGES.reactLogo} style={styles.reactLogo} />
 
-          <TextInput
-            value={username}
-            onChangeText={e => dispatch({ type: actions.username, payload: e })}
-            maxLength={21}
-            placeholder="Username"
-            style={styles.input}
-          />
+            <Image source={IMAGES.reactLogo} style={styles.reactLogo} />
 
-          <TextInput
-            value={password}
-            onChangeText={e => dispatch({ type: actions.password, payload: e })}
-            maxLength={30}
-            placeholder="Password"
-            secureTextEntry
-            style={styles.input}
-          />
+            <Image source={IMAGES.reactLogo} style={styles.reactLogo} />
 
-          <Button title="Login" style={styles.input} onPress={onLogin} />
+            <TextInput
+              value={username}
+              onChangeText={e =>
+                dispatch({ type: actions.username, payload: e })
+              }
+              maxLength={21}
+              placeholder="Username"
+              style={styles.input}
+            />
+            <TextInput
+              value={password}
+              onChangeText={e =>
+                dispatch({ type: actions.password, payload: e })
+              }
+              maxLength={30}
+              placeholder="Password"
+              secureTextEntry
+              style={styles.input}
+            />
+            <Button title="Login" style={styles.input} onPress={onLogin} />
+            <Button
+              title={`${count}`}
+              onPress={() => dispatch({ type: actions.increment, payload: 1 })}
+            />
+            <Button
+              title={`${count}`}
+              onPress={() => dispatch({ type: actions.decrement, payload: 1 })}
+            />
+            <Text>Platform Default</Text>
 
-          <Button
-            title={`${count}`}
-            onPress={() => dispatch({ type: actions.increment, payload: 1 })}
-          />
-
-          <Button
-            title={`${count}`}
-            onPress={() => dispatch({ type: actions.decrement, payload: 1 })}
-          />
-
-          <Text>Platform Default</Text>
-          <Text style={{ fontFamily: 'Roboto-Regular' }}>Roboto-Regular</Text>
-          <Text style={{ fontFamily: 'Roboto-Bold' }}>Roboto-Bold</Text>
-
-          <Text style={styles.status}>{keyboardStatus}</Text>
-        </KeyboardAvoidingView>
-      </View>
-    </TouchableWithoutFeedback>
+            <Text style={styles.textMain}>Roboto-Regular</Text>
+            <Text style={styles.textBold}>Roboto-Bold</Text>
+            <Text style={styles.textCalligraphy}>
+              Hello World! I&apos;m Zapfino font
+            </Text>
+            <Text style={styles.status}>{keyboardStatus}</Text>
+          </KeyboardAvoidingView>
+        </ScrollView>
+        <ImageBackground
+          source={IMAGES.mainBgImage}
+          style={[styles.mainBgImage, { width, height }]}
+        />
+      </TouchableWithoutFeedback>
+    </View>
   );
 };
 

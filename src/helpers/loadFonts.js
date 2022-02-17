@@ -1,11 +1,9 @@
 import * as Font from 'expo-font';
 
-const regular = 'assets/fonts/Roboto/Roboto-Regular.ttf';
-const bold = 'assets/fonts/Roboto/Roboto-Bold.ttf';
-
 const customFonts = {
-  'Roboto-Regular': require(regular),
-  'Roboto-Bold': require(bold),
+  'Roboto-Regular': require('src/assets/fonts/Roboto-Regular.ttf'),
+  'Roboto-Bold': require('src/assets/fonts/Roboto-Bold.ttf'),
+  Zapfino: require('src/assets/fonts/Zapfino.otf'),
 };
 
 export const loadFonts = async () => {

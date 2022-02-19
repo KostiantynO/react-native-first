@@ -1,6 +1,6 @@
 import { useEffect } from 'react';
-import { loadFonts } from 'src/helpers';
-import { actions } from 'src/common';
+import { loadFonts } from 'helpers';
+import { actions } from 'common';
 
 export const useLoadAssets = dispatch => {
   useEffect(() => {

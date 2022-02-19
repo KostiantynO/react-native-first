@@ -1,13 +1,31 @@
 {
   "compilerOptions": {
+    "baseUrl": "./",
     "paths": {
-      "src/*": ["./src/*"]
+      "hooks/*": ["./src/hooks/*"],
+      "utils/*": ["./src/utils/*"],
+      "context/*": ["./src/context/*"],
+      "common/*": ["src/common/*"],
+      "components/*": ["./src/components/*"],
+      "helpers/*": ["./src/helpers/*"],
+      "assets/*": ["./src/assets/*"]
     },
-
+    "sourceMap": true,
     "module": "CommonJS",
-    "target": "ES2021",
+    "target": "ES6",
+    "moduleResolution": "Node",
     "jsx": "react-native",
     "strictFunctionTypes": true
   },
-  "exclude": ["node_modules", "**/node_modules/*", "build", "web-build"]
+  "exclude": [
+    "node_modules",
+    "**/node_modules/*",
+    "build",
+    "web-build",
+    "babel.config.js",
+    "metro.config.js",
+    "jest.config.js"
+  ],
+
+  "include": ["src/**/*"]
 }

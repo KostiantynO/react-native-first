@@ -7,8 +7,15 @@ module.exports = function (api) {
       [
         'module-resolver',
         {
+          root: ['./src'],
           alias: {
-            src: './src',
+            hooks: './src/hooks',
+            utils: './src/utils',
+            context: './src/context',
+            common: './src/common',
+            helpers: './src/helpers',
+            components: './src/components',
+            assets: './src/assets',
           },
         },
       ],

@@ -15,9 +15,7 @@ module.exports = {
   ],
 
   parserOptions: {
-    ecmaFeatures: {
-      jsx: true,
-    },
+    ecmaFeatures: { jsx: true },
     ecmaVersion: 'latest',
     sourceType: 'module',
   },
@@ -32,11 +30,7 @@ module.exports = {
   },
 
   settings: {
-    'import/resolver': {
-      node: {
-        paths: ['src'],
-      },
-    },
+    'import/resolver': { node: { paths: ['src'] } },
 
     react: {
       createClass: 'createReactClass', // Regex for Component Factory to use,

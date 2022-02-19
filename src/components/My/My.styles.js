@@ -1,8 +1,14 @@
 import { Platform, StyleSheet } from 'react-native';
 
-export const styles = StyleSheet.create({
-  scrollView: {
+export const MyCSS = StyleSheet.create({
+  cat: {
+    color: '#eee',
+  },
+
+  contentContainer: {
     backgroundColor: 'transparent',
+    paddingTop: 0,
+    paddingBottom: 0,
   },
 
   mainBgImage: {
@@ -18,15 +24,7 @@ export const styles = StyleSheet.create({
 
   container: {
     flex: 1,
-    ...Platform.select({
-      ios: {
-        backgroundColor: '#888888',
-      },
-      android: {
-        backgroundColor: '#eeeeee',
-      },
-    }),
-
+    backgroundColor: 'transparent',
     alignItems: 'center',
     justifyContent: 'center',
     paddingVertical: 36,
@@ -47,6 +45,8 @@ export const styles = StyleSheet.create({
     fontWeight: 'bold',
   },
 
+  placeholder: { color: 'green' },
+
   input: {
     width: 200,
     fontSize: 21,
@@ -55,10 +55,8 @@ export const styles = StyleSheet.create({
     borderColor: '#000000',
     marginBottom: 10,
     borderRadius: 6,
-  },
-
-  text: {
-    fontSize: 30,
+    color: '#aaa',
+    backgroundColor: '#212121',
   },
 
   status: {
@@ -66,9 +64,34 @@ export const styles = StyleSheet.create({
     textAlign: 'center',
   },
 
-  reactLogo: { width: 250, height: 250 },
+  logoContainer: { padding: 20 },
 
-  textMain: { fontFamily: 'Roboto-Regular', fontSize: 21 },
-  textBold: { fontFamily: 'Roboto-Bold', fontSize: 21 },
-  textCalligraphy: { fontFamily: 'Zapfino', fontSize: 50 },
+  text: { fontSize: 30 },
+
+  reactLogo: { width: 80, height: 80 },
+
+  textMain: {
+    fontFamily: 'Roboto-Regular',
+    fontSize: 21,
+    color: '#aaa',
+    backgroundColor: '#212121',
+    paddingVertical: 8,
+    paddingHorizontal: 16,
+  },
+  textBold: {
+    fontFamily: 'Roboto-Bold',
+    fontSize: 21,
+    color: '#aaa',
+    backgroundColor: '#212121',
+    paddingVertical: 8,
+    paddingHorizontal: 16,
+  },
+  textCalligraphy: {
+    fontFamily: 'Zapfino',
+    fontSize: 50,
+    color: '#aaa',
+    backgroundColor: '#212121',
+    paddingVertical: 8,
+    paddingHorizontal: 16,
+  },
 });

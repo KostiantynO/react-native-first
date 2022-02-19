@@ -4,7 +4,7 @@
   font-style: normal;
   font-weight: 400;
   src: local('Roboto Regular'),
-    url('src/assets/fonts/Roboto-Regular.ttf') format('truetype'); /* Safari, Android, iOS */
+    url('assets/fonts/Roboto-Regular.ttf') format('truetype'); /* Safari, Android, iOS */
 }
 
 /* roboto-700 - latin_cyrillic */
@@ -13,7 +13,7 @@
   font-style: normal;
   font-weight: 700;
   src: local('Roboto Bold'),
-    url('src/assets/fonts/Roboto-Bold.ttf') format('truetype'); /* Safari, Android, iOS */
+    url('assets/fonts/Roboto-Bold.ttf') format('truetype'); /* Safari, Android, iOS */
 }
 
 /* roboto-700 - latin_cyrillic */
@@ -21,5 +21,5 @@
   font-family: 'Zapfino';
   font-style: normal;
   font-weight: 400;
-  src: local('Zapfino'), url('src/assets/fonts/Zapfino.otf') format('opentype'); /* Safari, Android, iOS */
+  src: local('Zapfino'), url('assets/fonts/Zapfino.otf') format('opentype'); /* Safari, Android, iOS */
 }

@@ -1,5 +1,5 @@
 import { useState, useEffect } from 'react';
-import { load, save } from 'src/utils';
+import { load, save } from 'utils';
 
 export const useLocalStorage = (
   key,

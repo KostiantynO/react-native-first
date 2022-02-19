@@ -1,10 +1,15 @@
 export const actions = Object.freeze({
-  username: 'name',
+  selected: 'selected',
+  username: 'username',
   password: 'password',
   appIsReady: 'appIsReady',
   error: 'error',
   increment: 'increment',
   decrement: 'decrement',
   keyboardStatus: 'keyboardStatus',
-  stateNames: { count: 'count' },
+  stateNames: {
+    my: 'my',
+    tutorial: 'tutorial',
+    count: 'count',
+  },
 });

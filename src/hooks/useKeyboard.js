@@ -1,6 +1,6 @@
 import { useEffect } from 'react';
 import { Keyboard } from 'react-native';
-import { actions } from 'src/common';
+import { actions } from 'common';
 
 export const useKeyboard = dispatch => {
   useEffect(() => {

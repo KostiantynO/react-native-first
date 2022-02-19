@@ -1,5 +1,7 @@
-import { actions } from 'src/common';
+import { actions } from 'common';
+
 const {
+  selected,
   increment,
   decrement,
   username,
@@ -12,6 +14,7 @@ const {
 
 export const appReducer = (state, { type, payload }) =>
   ({
+    [selected]: () => ({ ...state, [selected]: payload }),
     [appIsReady]: () => ({ ...state, [appIsReady]: payload }),
     [password]: () => ({ ...state, [password]: payload }),
     [username]: () => ({ ...state, [username]: payload }),

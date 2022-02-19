@@ -1,11 +1,11 @@
 {
   "files": {
-    "app.js": "/react-native-first/static/js/app.8b7f358a.chunk.js",
-    "app.js.map": "/react-native-first/static/js/app.8b7f358a.chunk.js.map",
+    "app.js": "/react-native-first/static/js/app.658b77e7.chunk.js",
+    "app.js.map": "/react-native-first/static/js/app.658b77e7.chunk.js.map",
     "runtime~app.js": "/react-native-first/static/js/runtime~app.fcc6f3ec.js",
     "runtime~app.js.map": "/react-native-first/static/js/runtime~app.fcc6f3ec.js.map",
-    "static/js/2.a8b0ee3f.chunk.js": "/react-native-first/static/js/2.a8b0ee3f.chunk.js",
-    "static/js/2.a8b0ee3f.chunk.js.map": "/react-native-first/static/js/2.a8b0ee3f.chunk.js.map",
+    "static/js/2.e1f5baa5.chunk.js": "/react-native-first/static/js/2.e1f5baa5.chunk.js",
+    "static/js/2.e1f5baa5.chunk.js.map": "/react-native-first/static/js/2.e1f5baa5.chunk.js.map",
     "fonts/Roboto-Bold.ttf": "/react-native-first/./fonts/Roboto-Bold.ttf",
     "fonts/Roboto-Regular.ttf": "/react-native-first/./fonts/Roboto-Regular.ttf",
     "fonts/Zapfino.otf": "/react-native-first/./fonts/Zapfino.otf",
@@ -15,12 +15,13 @@
     "index.html": "/react-native-first/index.html",
     "manifest.json": "/react-native-first/manifest.json",
     "serve.json": "/react-native-first/serve.json",
-    "static/js/2.a8b0ee3f.chunk.js.LICENSE.txt": "/react-native-first/static/js/2.a8b0ee3f.chunk.js.LICENSE.txt",
+    "static/js/2.e1f5baa5.chunk.js.LICENSE.txt": "/react-native-first/static/js/2.e1f5baa5.chunk.js.LICENSE.txt",
+    "static/media/logo-react.png": "/react-native-first/static/media/logo-react.ef20e673.png",
     "static/media/stars-on-night.jpg": "/react-native-first/static/media/stars-on-night.d71538a9.jpg"
   },
   "entrypoints": [
     "static/js/runtime~app.fcc6f3ec.js",
-    "static/js/2.a8b0ee3f.chunk.js",
-    "static/js/app.8b7f358a.chunk.js"
+    "static/js/2.e1f5baa5.chunk.js",
+    "static/js/app.658b77e7.chunk.js"
   ]
 }

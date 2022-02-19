@@ -8,7 +8,7 @@ const {
   password,
   appIsReady,
   error,
-  keyboardStatus,
+  isKeyboardOpen,
   stateNames: { count },
 } = actions;
 
@@ -21,5 +21,5 @@ export const appReducer = (state, { type, payload }) =>
     [increment]: () => ({ ...state, [count]: state[count] + payload }),
     [decrement]: () => ({ ...state, [count]: state[count] - payload }),
     [error]: () => ({ ...state, [error]: payload }),
-    [keyboardStatus]: () => ({ ...state, [keyboardStatus]: payload }),
+    [isKeyboardOpen]: () => ({ ...state, [isKeyboardOpen]: payload }),
   }[type]());

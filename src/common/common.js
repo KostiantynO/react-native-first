@@ -6,7 +6,7 @@ export const actions = Object.freeze({
   error: 'error',
   increment: 'increment',
   decrement: 'decrement',
-  keyboardStatus: 'keyboardStatus',
+  isKeyboardOpen: 'isKeyboardOpen',
   stateNames: {
     my: 'my',
     tutorial: 'tutorial',

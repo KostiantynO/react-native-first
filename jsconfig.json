@@ -1,19 +1,26 @@
 {
   "compilerOptions": {
-    "baseUrl": "./",
+    "baseUrl": "src",
     "paths": {
-      "hooks/*": ["./src/hooks/*"],
-      "utils/*": ["./src/utils/*"],
-      "context/*": ["./src/context/*"],
+      "hooks/*": ["src/hooks/*"],
+      "utils/*": ["src/utils/*"],
+      "context/*": ["src/context/*"],
       "common/*": ["src/common/*"],
-      "components/*": ["./src/components/*"],
-      "helpers/*": ["./src/helpers/*"],
-      "assets/*": ["./src/assets/*"]
+      "components/*": ["src/components/*"],
+      "helpers/*": ["src/helpers/*"],
+      "assets/*": ["src/assets/*"]
     },
     "sourceMap": true,
     "module": "CommonJS",
     "target": "ES6",
-    "moduleResolution": "Node",
+    "importHelpers": true,
+    "noImplicitOverride": true,
+    "allowJs": true,
+    "checkJs": true,
+    "isolatedModules": true,
+    "forceConsistentCasingInFileNames": true,
+    "rootDir": "src",
+    "alwaysStrict": true,
     "jsx": "react-native",
     "strictFunctionTypes": true
   },
@@ -27,5 +34,5 @@
     "jest.config.js"
   ],
 
-  "include": ["src/**/*"]
+  "include": ["src/**/*", "global.d.ts"]
 }

@@ -4,17 +4,15 @@ import { appCtx } from 'context';
 import { actions, theme } from 'common';
 
 const styles = StyleSheet.create({
-  minimumContainer: {
-    paddingVertical: 36,
-  },
   navBar: {
     flexDirection: 'row',
     backgroundColor: theme.dark.main.bg,
+    paddingVertical: 8,
   },
 
   navBtn: {
-    paddingVertical: 8,
     paddingHorizontal: 12,
+    minWidth: 100,
   },
 });
 

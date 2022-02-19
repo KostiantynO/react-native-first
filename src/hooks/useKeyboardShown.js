@@ -1,15 +1,17 @@
+import { actions } from 'common';
 import { useEffect } from 'react';
 import { Keyboard } from 'react-native';
-import { actions } from 'common';
 
-export const useKeyboard = dispatch => {
+const { isKeyboardOpen } = actions;
+
+export const useKeyboardShown = dispatch => {
   useEffect(() => {
     const showSubscription = Keyboard.addListener('keyboardDidShow', () => {
-      dispatch({ type: actions.keyboardStatus, payload: 'Keyboard Shown' });
+      dispatch({ type: isKeyboardOpen, payload: true });
     });
 
     const hideSubscription = Keyboard.addListener('keyboardDidHide', () => {
-      dispatch({ type: actions.keyboardStatus, payload: 'Keyboard Hidden' });
+      dispatch({ type: isKeyboardOpen, payload: false });
     });
 
     return () => {

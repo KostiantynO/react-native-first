@@ -1,6 +1,7 @@
-import { Platform, StyleSheet } from 'react-native';
+import { theme } from 'common';
+import { StyleSheet } from 'react-native';
 
-export const MyCSS = StyleSheet.create({
+export const css = StyleSheet.create({
   cat: {
     color: '#eee',
   },
@@ -24,39 +25,35 @@ export const MyCSS = StyleSheet.create({
 
   container: {
     flex: 1,
-    backgroundColor: 'transparent',
+    backgroundColor: theme.colors.transparent,
     alignItems: 'center',
     justifyContent: 'center',
     paddingVertical: 36,
   },
 
-  height: Platform.OS === 'ios' ? 50 : 100,
-
   title: {
     marginTop: 16,
     paddingVertical: 8,
     borderWidth: 4,
-    borderColor: '#20232a',
+    borderColor: theme.dark.main.bg,
     borderRadius: 150,
-    backgroundColor: '#61dafb',
-    color: '#20232a',
+    backgroundColor: theme.colors.darkerGray,
+    color: theme.dark.main.bg,
     textAlign: 'center',
     fontSize: 100,
     fontWeight: 'bold',
   },
-
-  placeholder: { color: 'green' },
 
   input: {
     width: 200,
     fontSize: 21,
     padding: 10,
     borderWidth: 1,
-    borderColor: '#000000',
+    borderColor: theme.colors.black,
     marginBottom: 10,
     borderRadius: 6,
-    color: '#aaa',
-    backgroundColor: '#212121',
+    color: theme.dark.main.fg,
+    backgroundColor: theme.dark.main.bg,
   },
 
   status: {
@@ -66,31 +63,34 @@ export const MyCSS = StyleSheet.create({
 
   logoContainer: { padding: 20 },
 
-  text: { fontSize: 30 },
-
   reactLogo: { width: 80, height: 80 },
 
+  text: { fontSize: 30 },
+  // textDefault: {
+  //   fontSize: 30,
+  //   color: theme.dark.main.fg,
+  // },
   textMain: {
-    fontFamily: 'Roboto-Regular',
+    fontFamily: theme.fonts.roboto.regular,
     fontSize: 21,
-    color: '#aaa',
-    backgroundColor: '#212121',
+    color: theme.dark.main.fg,
+    backgroundColor: theme.dark.main.bg,
     paddingVertical: 8,
     paddingHorizontal: 16,
   },
   textBold: {
-    fontFamily: 'Roboto-Bold',
+    fontFamily: theme.fonts.roboto.bold,
     fontSize: 21,
-    color: '#aaa',
-    backgroundColor: '#212121',
+    color: theme.dark.main.fg,
+    backgroundColor: theme.dark.main.bg,
     paddingVertical: 8,
     paddingHorizontal: 16,
   },
   textCalligraphy: {
-    fontFamily: 'Zapfino',
+    fontFamily: theme.fonts.zapfino,
     fontSize: 50,
-    color: '#aaa',
-    backgroundColor: '#212121',
+    color: theme.dark.main.fg,
+    backgroundColor: theme.dark.main.bg,
     paddingVertical: 8,
     paddingHorizontal: 16,
   },

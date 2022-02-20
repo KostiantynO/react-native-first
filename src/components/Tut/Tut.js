@@ -1,4 +1,4 @@
-import { useContext } from 'react';
+import { useContext, useState } from 'react';
 import {
   ImageBackground,
   StyleSheet,
@@ -9,9 +9,10 @@ import {
   TouchableOpacity,
   Platform,
   Keyboard,
+  TouchableWithoutFeedback,
 } from 'react-native';
 
-import { theme } from 'common';
+import { actions, theme } from 'common';
 import { appCtx } from 'context';
 import { IMAGES } from 'assets/images';
 
@@ -97,58 +98,79 @@ const styles = StyleSheet.create({
   },
 });
 
-export const Tut = () => {
-  const { isKeyboardOpen } = useContext(appCtx);
+const INITIAL_STATE = '';
 
-  const hideKeyboard = () => Keyboard.dismiss();
+export const Tut = () => {
+  const { isKeyboardOpen, dispatch } = useContext(appCtx);
+  const [username, setUsername] = useState(INITIAL_STATE);
+  const [password, setPassword] = useState(INITIAL_STATE);
+
+  const hideKeyboard = () => {
+    Keyboard.dismiss();
+  };
+
+  const handleSubmit = () => {
+    hideKeyboard();
+
+    dispatch({ type: actions.username, payload: username });
+    dispatch({ type: actions.password, payload: password });
+    setUsername(INITIAL_STATE);
+    setPassword(INITIAL_STATE);
+  };
 
   return (
     <View style={styles.container}>
-      <ImageBackground source={IMAGES.tutBgImage} style={styles.image}>
-        <View
-          style={{
-            ...styles.form,
-            marginBottom: isKeyboardOpen ? 0 : 0,
-          }}
-        >
-          <View style={styles.header}>
-            <Text style={styles.headerTitle}>Hello again</Text>
-            <Text style={styles.headerTitle}>Welcome back</Text>
+      <TouchableWithoutFeedback onPress={hideKeyboard}>
+        <ImageBackground source={IMAGES.tutBgImage} style={styles.image}>
+          <View
+            style={{
+              ...styles.form,
+              marginBottom: isKeyboardOpen ? 0 : 150,
+            }}
+          >
+            <View style={styles.header}>
+              <Text style={styles.headerTitle}>Hello again</Text>
+              <Text style={styles.headerTitle}>Welcome back</Text>
+            </View>
+
+            <View>
+              <Text style={styles.inputTitle}>
+                EMAIL ADDRESS {`${isKeyboardOpen}`}
+              </Text>
+
+              <TextInput
+                value={username}
+                onChangeText={setUsername}
+                keyboardType="email-address"
+                style={styles.input}
+                textAlign="center"
+              />
+            </View>
+
+            <View style={{ marginTop: 20 }}>
+              <Text style={styles.inputTitle}>PASSWORD</Text>
+
+              <TextInput
+                value={password}
+                onChangeText={setPassword}
+                secureTextEntry={true}
+                style={styles.input}
+                textAlign="center"
+              />
+            </View>
+
+            <View>
+              <TouchableOpacity
+                activeOpacity={0.8}
+                style={styles.btn}
+                onPress={handleSubmit}
+              >
+                <Text style={styles.btnLabel}>SIGN IN</Text>
+              </TouchableOpacity>
+            </View>
           </View>
-
-          <View>
-            <Text style={styles.inputTitle}>
-              EMAIL ADDRESS {`${isKeyboardOpen}`}
-            </Text>
-
-            <TextInput
-              textAlign="center"
-              keyboardType="email-address"
-              style={styles.input}
-            />
-          </View>
-
-          <View style={{ marginTop: 20 }}>
-            <Text style={styles.inputTitle}>PASSWORD</Text>
-
-            <TextInput
-              secureTextEntry={true}
-              textAlign="center"
-              style={styles.input}
-            />
-          </View>
-
-          <View>
-            <TouchableOpacity
-              activeOpacity={0.8}
-              style={styles.btn}
-              onPress={hideKeyboard}
-            >
-              <Text style={styles.btnLabel}>SIGN IN</Text>
-            </TouchableOpacity>
-          </View>
-        </View>
-      </ImageBackground>
+        </ImageBackground>
+      </TouchableWithoutFeedback>
     </View>
   );
 };

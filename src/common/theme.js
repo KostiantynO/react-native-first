@@ -5,12 +5,19 @@ const colors = Object.freeze({
   black: '#000000',
   white: '#000000',
   lightestGrey: '#eee',
+  lighterGrey: '#aaa',
   lightGrey: 'lightgrey',
-  green: 'green',
-  red: 'red',
+  darkerGray: '#61dafb',
+  green: '#00ff00',
+  red: '#ff0000',
   lightPink: '#ffb6c1',
   transparent: 'transparent',
   royalBlue: '#4169e1',
+});
+
+const fonts = Object.freeze({
+  roboto: { regular: 'Roboto-Regular', bold: 'Roboto-Bold' },
+  zapfino: 'Zapfino',
 });
 
 export const theme = Object.freeze({
@@ -19,5 +26,6 @@ export const theme = Object.freeze({
   },
   // light: {main: {fg:, } },
 
+  fonts,
   colors,
 });

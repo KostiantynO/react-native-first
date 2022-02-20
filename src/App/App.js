@@ -28,7 +28,7 @@ const {
   password,
   appIsReady,
   error,
-  keyboardStatus,
+  isKeyboardOpen,
 } = actions;
 
 const INITIAL_STATE = Object.freeze({
@@ -38,11 +38,11 @@ const INITIAL_STATE = Object.freeze({
   [appIsReady]: false,
   [error]: false,
   [stateNames.count]: 0,
-  [keyboardStatus]: undefined,
+  [isKeyboardOpen]: null,
 });
 
 export const App = () => {
-  const [state, dispatch] = useReducer(appReducer, { ...INITIAL_STATE });
+  const [state, dispatch] = useReducer(appReducer, INITIAL_STATE);
   useLoadAssets(dispatch);
   useKeyboardShown(dispatch);
 
@@ -62,7 +62,7 @@ export const App = () => {
 
   const appState = { ...state, dispatch, width, height, onLogin };
 
-  const iOS = Platform.OS === 'ios' ? 'padding' : '';
+  const iOS = Platform.OS === 'ios' ? 'padding' : null;
 
   return (
     <KeyboardAvoidingView style={styles.app} behavior={iOS}>

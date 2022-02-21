@@ -1,6 +1,9 @@
 export const actions = Object.freeze({
+  auth: 'auth',
+  registration: 'registration',
   selected: 'selected',
-  username: 'username',
+  login: 'login',
+  email: 'email',
   password: 'password',
   appIsReady: 'appIsReady',
   error: 'error',
@@ -10,6 +13,8 @@ export const actions = Object.freeze({
   stateNames: {
     my: 'my',
     tutorial: 'tutorial',
+    RegistrationScreen: 'Registration screen',
+    LoginScreen: 'Login screen',
     count: 'count',
   },
 });

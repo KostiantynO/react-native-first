@@ -1,25 +1,41 @@
 import { useContext, useState } from 'react';
+
 import {
   ImageBackground,
   StyleSheet,
   Text,
-  // Text,
   TextInput,
   View,
   TouchableOpacity,
   Platform,
-  Keyboard,
-  TouchableWithoutFeedback,
+  ScrollView,
 } from 'react-native';
 
 import { actions, theme } from 'common';
 import { appCtx } from 'context';
-import { IMAGES } from 'assets/images';
+
+const images = {
+  tutBg: require('assets/images/stars-on-night.jpg'),
+};
 
 const styles = StyleSheet.create({
-  container: {
+  tut: {
     flex: 1,
-    backgroundColor: theme.dark.main.bg,
+  },
+
+  container: {
+    paddingVertical: 36,
+  },
+
+  scrollView: {
+    backgroundColor: theme.colors.transparent,
+  },
+
+  image: {
+    position: 'absolute',
+    zIndex: -1,
+    flex: 1,
+    resizeMode: 'cover',
   },
 
   text: {
@@ -34,17 +50,10 @@ const styles = StyleSheet.create({
     width: 300,
   },
 
-  image: {
-    flex: 1,
-    resizeMode: 'cover',
-    justifyContent: 'flex-end',
-    // alignItems: 'center',
-  },
-
   input: {
     borderWidth: 1,
     borderColor: theme.dark.main.fg,
-    // marginHorizontal: 20,
+    marginHorizontal: 20,
     borderRadius: 6,
     color: theme.dark.main.fg,
     paddingVertical: 4,
@@ -52,7 +61,10 @@ const styles = StyleSheet.create({
     fontSize: 21,
   },
   form: {
-    marginHorizontal: 20,
+    marginHorizontal: 40,
+    marginBottom: 20,
+    maxWidth: 480,
+    minWidth: 300,
   },
   inputTitle: {
     marginBottom: 10,
@@ -66,7 +78,7 @@ const styles = StyleSheet.create({
     paddingVertical: 8,
     paddingHorizontal: 12,
     marginTop: 40,
-    marginHorizontal: 20,
+    marginHorizontal: 40,
 
     borderRadius: 6,
     borderWidth: 1,
@@ -90,57 +102,54 @@ const styles = StyleSheet.create({
   },
   header: {
     alignItems: 'center',
-    marginBottom: 0,
+    marginBottom: 100,
   },
   headerTitle: {
     fontSize: 30,
+    fontWeight: '400',
     color: theme.dark.main.fg,
+    fontFamily: theme.fonts.roboto.regular,
   },
 });
 
 const INITIAL_STATE = '';
 
 export const Tut = () => {
-  const { isKeyboardOpen, dispatch } = useContext(appCtx);
-  const [username, setUsername] = useState(INITIAL_STATE);
+  const { width, height, dispatch } = useContext(appCtx);
+  const [email, setEmail] = useState(INITIAL_STATE);
   const [password, setPassword] = useState(INITIAL_STATE);
 
-  const hideKeyboard = () => {
-    Keyboard.dismiss();
-  };
-
   const handleSubmit = () => {
-    hideKeyboard();
+    // Keyboard.dismiss();
 
-    dispatch({ type: actions.username, payload: username });
+    dispatch({ type: actions.email, payload: email });
     dispatch({ type: actions.password, payload: password });
-    setUsername(INITIAL_STATE);
+    setEmail(INITIAL_STATE);
     setPassword(INITIAL_STATE);
   };
 
+  const bgImageDynamic = [styles.image, { width, height }];
+
+  // const isEmail = email.trim().length < 1 ? 'stranger' : email + '!';
+
   return (
-    <View style={styles.container}>
-      <TouchableWithoutFeedback onPress={hideKeyboard}>
-        <ImageBackground source={IMAGES.tutBgImage} style={styles.image}>
-          <View
-            style={{
-              ...styles.form,
-              marginBottom: isKeyboardOpen ? 0 : 150,
-            }}
-          >
+    <View style={styles.tut}>
+      <ImageBackground source={images.tutBg} style={bgImageDynamic} />
+
+      <ScrollView contentContainerStyle={styles.scrollView}>
+        <View style={styles.container}>
+          <View style={styles.form}>
             <View style={styles.header}>
-              <Text style={styles.headerTitle}>Hello again</Text>
+              <Text style={styles.headerTitle}>Hello</Text>
               <Text style={styles.headerTitle}>Welcome back</Text>
             </View>
 
             <View>
-              <Text style={styles.inputTitle}>
-                EMAIL ADDRESS {`${isKeyboardOpen}`}
-              </Text>
+              <Text style={styles.inputTitle}>EMAIL ADDRESS</Text>
 
               <TextInput
-                value={username}
-                onChangeText={setUsername}
+                value={email}
+                onChangeText={setEmail}
                 keyboardType="email-address"
                 style={styles.input}
                 textAlign="center"
@@ -169,8 +178,8 @@ export const Tut = () => {
               </TouchableOpacity>
             </View>
           </View>
-        </ImageBackground>
-      </TouchableWithoutFeedback>
+        </View>
+      </ScrollView>
     </View>
   );
 };

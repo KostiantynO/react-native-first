@@ -2,26 +2,21 @@ import { theme } from 'common';
 import { StyleSheet } from 'react-native';
 
 export const css = StyleSheet.create({
-  cat: {
-    color: '#eee',
+  my: {
+    flex: 1,
   },
 
-  contentContainer: {
-    backgroundColor: 'transparent',
-    paddingTop: 0,
-    paddingBottom: 0,
+  cat: {
+    color: theme.colors.lightestGrey,
   },
 
   mainBgImage: {
     position: 'absolute',
-    top: 0,
-    right: 0,
-    bottom: 0,
-    left: 0,
-    zIndex: -1,
     flex: 1,
     resizeMode: 'cover',
   },
+
+  contentContainer: {},
 
   container: {
     flex: 1,
@@ -86,8 +81,15 @@ export const css = StyleSheet.create({
     paddingVertical: 8,
     paddingHorizontal: 16,
   },
+  textDMMono: {
+    fontSize: 30,
+    fontFamily: theme.fonts.dmmono.regular,
+    color: theme.dark.main.fg,
+    backgroundColor: theme.dark.main.bg,
+    padding: 16,
+  },
   textCalligraphy: {
-    fontFamily: theme.fonts.zapfino,
+    // fontFamily: theme.fonts.zapfino,
     fontSize: 50,
     color: theme.dark.main.fg,
     backgroundColor: theme.dark.main.bg,

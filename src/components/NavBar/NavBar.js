@@ -6,11 +6,15 @@ import { actions, theme } from 'common';
 const styles = StyleSheet.create({
   navBar: {
     flexDirection: 'row',
+    flexWrap: 'wrap',
+    alignItems: 'center',
+    justifyContent: 'center',
     backgroundColor: theme.dark.main.bg,
-    paddingVertical: 8,
   },
 
   navBtn: {
+    paddingTop: 12,
+    paddingBottom: 12,
     paddingHorizontal: 12,
     minWidth: 100,
   },
@@ -25,17 +29,34 @@ export const NavBar = () => {
     <View style={styles.navBar}>
       <View style={styles.navBtn}>
         <Button
-          title="My"
+          title={stateNames.my}
           onPress={() => dispatch({ type: selected, payload: stateNames.my })}
         />
       </View>
 
       <View style={styles.navBtn}>
         <Button
-          title="Tutorial"
-          style={styles.navBtn}
+          title={stateNames.tutorial}
           onPress={() =>
             dispatch({ type: selected, payload: stateNames.tutorial })
+          }
+        />
+      </View>
+
+      <View style={styles.navBtn}>
+        <Button
+          title={stateNames.RegistrationScreen}
+          onPress={() =>
+            dispatch({ type: selected, payload: stateNames.RegistrationScreen })
+          }
+        />
+      </View>
+
+      <View style={styles.navBtn}>
+        <Button
+          title={stateNames.LoginScreen}
+          onPress={() =>
+            dispatch({ type: selected, payload: stateNames.LoginScreen })
           }
         />
       </View>

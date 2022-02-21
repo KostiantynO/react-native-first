@@ -16,7 +16,6 @@
     "importHelpers": true,
     "noImplicitOverride": true,
     "allowJs": true,
-    "checkJs": true,
     "isolatedModules": true,
     "forceConsistentCasingInFileNames": true,
     "rootDir": "src",

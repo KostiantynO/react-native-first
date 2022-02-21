@@ -8,4 +8,5 @@ declare module '*.png' {
   export default content;
 }
 
-declare module 'assets/images';
+declare module '*.ttf';
+declare module '*.otf';

@@ -5,7 +5,6 @@
   "name": "react-native-first",
   "short_name": "react-native-first",
   "start_url": "/?utm_source=web_app_manifest",
-  "orientation": "portrait",
   "icons": [
     {
       "src": "/react-native-first/pwa/chrome-icon/chrome-icon-144.png",

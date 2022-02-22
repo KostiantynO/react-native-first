@@ -23,7 +23,8 @@ module.exports = {
   plugins: ['react', 'react-hooks'],
 
   rules: {
-    indent: ['error', 2, { SwitchCase: 1 }],
+    indent: ['error', 2, { flatTernaryExpressions: true }],
+
     'linebreak-style': ['error', 'unix'],
     quotes: ['error', 'single'],
     semi: ['error', 'always'],

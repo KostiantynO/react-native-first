@@ -10,7 +10,7 @@ import {
 } from 'react-native';
 
 import { appCtx } from 'context';
-import { actions, theme } from 'common';
+import { types, theme } from 'common';
 
 import { Cat } from '../Cat';
 
@@ -22,9 +22,9 @@ const images = {
 
 export const My = () => {
   const {
-    email,
-    password,
-    count,
+    myEmail,
+    myPassword,
+    myCount,
     keyboardStatus,
     width,
     height,
@@ -33,6 +33,21 @@ export const My = () => {
   } = useContext(appCtx);
 
   const bgImageDynamic = [css.mainBgImage, { width, height }];
+
+  const setMyEmail = text => {
+    dispatch({ type: types.myEmail, payload: text });
+  };
+
+  const setMyPassword = text => {
+    dispatch({ type: types.myPassword, payload: text });
+  };
+
+  const handleMyLogin = async () => {
+    await onLogin();
+
+    setMyEmail('');
+    setMyPassword('');
+  };
 
   return (
     <View style={css.my}>
@@ -48,39 +63,41 @@ export const My = () => {
 
           <Text style={css.textMain}>Email</Text>
           <TextInput
-            value={email}
-            onChangeText={text =>
-              dispatch({ type: actions.email, payload: text })
-            }
+            value={`${myEmail}`}
+            onChangeText={setMyEmail}
             maxLength={21}
             style={css.input}
+            textContentType="emailAddress"
             placeholderTextColor={theme.dark.main.fg}
           />
 
           <Text style={css.textMain}>Password</Text>
           <TextInput
-            value={password}
-            onChangeText={text =>
-              dispatch({ type: actions.password, payload: text })
-            }
+            value={`${myPassword}`}
+            onChangeText={setMyPassword}
             maxLength={30}
-            secureTextEntry
+            secureTextEntry={true}
             style={css.input}
+            textContentType="password"
             placeholderTextColor={theme.dark.main.fg}
           />
 
           <View>
-            <Button title="Login" onPress={onLogin} />
+            <Button title="Login" onPress={handleMyLogin} />
+          </View>
+
+          <View>
+            <Text>{myCount}</Text>
           </View>
 
           <Button
-            title={`${count}`}
-            onPress={() => dispatch({ type: actions.increment, payload: 1 })}
+            title={`${types.myIncrement}`}
+            onPress={() => dispatch({ type: types.myIncrement, payload: 1 })}
           />
 
           <Button
-            title={`${count}`}
-            onPress={() => dispatch({ type: actions.decrement, payload: 1 })}
+            title={`${types.myDecrement}`}
+            onPress={() => dispatch({ type: types.myDecrement, payload: 1 })}
           />
 
           <Text>Platform Default</Text>

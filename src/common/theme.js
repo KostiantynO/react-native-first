@@ -27,9 +27,14 @@ const fonts = Object.freeze({
 
 export const theme = Object.freeze({
   dark: {
+    accent: colors.orange,
     main: { fg: colors.aliceBlue, bg: colors.primary },
   },
-  // light: {main: {fg:, } },
+
+  // light: {
+  //   accent: colors.orange,
+  //   main: { fg: colors.aliceBlue, bg: colors.primary },
+  // },
 
   fonts,
   colors,

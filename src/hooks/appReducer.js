@@ -1,40 +1,79 @@
-import { actions } from 'common';
+import { types } from 'common';
 
 const {
-  auth,
-  registration,
-  selected,
-  login,
-  email,
-  password,
-  appIsReady,
-  error,
-  isKeyboardOpen,
-  increment,
-  decrement,
-  stateNames: { count },
-} = actions;
+  appSelected,
+  appAppIsReady,
+  appIsKeyboardOpen,
+  appError,
 
-export const appReducer = (state, { type, payload }) =>
-  ({
-    [auth]: () => ({
-      ...state,
-      [email]: payload[email],
-      [password]: payload[password],
-    }),
-    [registration]: () => ({
-      ...state,
-      [login]: payload[login],
-      [email]: payload[email],
-      [password]: payload[password],
-    }),
-    [selected]: () => ({ ...state, [selected]: payload }),
-    [appIsReady]: () => ({ ...state, [appIsReady]: payload }),
-    [login]: () => ({ ...state, [login]: payload }),
-    [email]: () => ({ ...state, [email]: payload }),
-    [password]: () => ({ ...state, [password]: payload }),
-    [increment]: () => ({ ...state, [count]: state[count] + payload }),
-    [decrement]: () => ({ ...state, [count]: state[count] - payload }),
-    [error]: () => ({ ...state, [error]: payload }),
-    [isKeyboardOpen]: () => ({ ...state, [isKeyboardOpen]: payload }),
-  }[type]());
+  tutNickname,
+  tutEmail,
+  tutPassword,
+  tutRegistration,
+  tutAuth,
+  tutError,
+
+  hwLogin,
+  hwEmail,
+  hwPassword,
+  hwRegistration,
+  hwAuth,
+  hwError,
+
+  myEmail,
+  myPassword,
+  myCount,
+  myIncrement,
+  myDecrement,
+} = types;
+
+const simpleStateTypes = [
+  appSelected,
+  appAppIsReady,
+  appIsKeyboardOpen,
+  appError,
+
+  tutNickname,
+  tutEmail,
+  tutPassword,
+  tutError,
+
+  hwLogin,
+  hwEmail,
+  hwPassword,
+  hwError,
+
+  myEmail,
+  myPassword,
+];
+
+const combinedStateTypes = [
+  { label: tutRegistration, values: [tutNickname, tutEmail, tutPassword] },
+  { label: tutAuth, values: [tutEmail, tutPassword] },
+  { label: hwRegistration, values: [hwLogin, hwEmail, hwPassword] },
+  { label: hwAuth, values: [hwEmail, hwPassword] },
+];
+
+export const appReducer = (state, { type, payload }) => {
+  const simpleType =
+    simpleStateTypes.find(stateType => stateType === type) ?? 'notSimpleType';
+  const combinedType = combinedStateTypes.find(({ label }) => label === type);
+
+  const setSimpleState = typeName => ({ ...state, [typeName]: payload });
+  const setCombinedState = combinedTypeValues => ({
+    ...state,
+    ...combinedTypeValues?.reduce(
+      (acc, val) => ({ ...acc, ...{ [val]: payload[val] } }),
+      {},
+    ),
+  });
+
+  return {
+    [simpleType]: () => setSimpleState(simpleType),
+    [combinedType?.label ?? 'notCombinedType']: () =>
+      setCombinedState(combinedType.values),
+
+    [myIncrement]: () => ({ ...state, [myCount]: state[myCount] + payload }),
+    [myDecrement]: () => ({ ...state, [myCount]: state[myCount] - payload }),
+  }[type]();
+};

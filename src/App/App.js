@@ -12,10 +12,16 @@ import {
 import { registerRootComponent } from 'expo';
 import AppLoading from 'expo-app-loading';
 import { appReducer, useKeyboardShown, useLoadAssets } from 'hooks';
-import { actions, theme } from 'common';
+import { types, arch, theme } from 'common';
+
 import { appCtx } from 'context';
-import { NavBar, My, Tut } from 'components';
-import { LoginScreen, RegistrationScreen } from 'screens';
+import { NavBar, My } from 'components';
+import {
+  LoginScreen,
+  RegistrationScreen,
+  TutLoginScreen,
+  TutRegistrationScreen,
+} from 'screens';
 
 const styles = StyleSheet.create({
   app: {
@@ -25,24 +31,35 @@ const styles = StyleSheet.create({
   },
 });
 
+// prettier-ignore
+const { appIsLoggedIn, appSelected, appAppIsReady, appIsKeyboardOpen, appError, tutNickname, tutEmail, tutPassword, hwLogin, hwEmail, hwPassword, myCount, tutError, hwError, myEmail, myPassword
+  // tutRegistration, hwRegistration, tutAuth, hwAuth, myIncrement, myDecrement,
+} = types;
+
 const {
-  stateNames,
-  selected,
-  email,
-  password,
-  appIsReady,
-  error,
-  isKeyboardOpen,
-} = actions;
+  screens: { tut, hw, my },
+} = arch;
 
 const INITIAL_STATE = Object.freeze({
-  [selected]: stateNames.RegistrationScreen,
-  [email]: '',
-  [password]: '',
-  [appIsReady]: false,
-  [error]: false,
-  [stateNames.count]: 0,
-  [isKeyboardOpen]: false,
+  [appSelected]: tut.singUpScreen,
+  [appIsLoggedIn]: false,
+  [appAppIsReady]: false,
+  [appError]: null,
+  [appIsKeyboardOpen]: false,
+
+  [tutNickname]: '',
+  [tutEmail]: '',
+  [tutPassword]: '',
+  [tutError]: null,
+
+  [hwLogin]: '',
+  [hwEmail]: '',
+  [hwPassword]: '',
+  [hwError]: null,
+
+  [myEmail]: '',
+  [myPassword]: '',
+  [myCount]: 0,
 });
 
 export const App = () => {
@@ -51,20 +68,31 @@ export const App = () => {
   useKeyboardShown(dispatch);
   const { width, height } = useWindowDimensions();
 
-  if (!state.appIsReady) return <AppLoading />;
+  if (!state.appAppIsReady) return <AppLoading />;
+
+  const isMy = state.appSelected === my.myScreen;
+  const isTutSignUp = state.appSelected === tut.singUpScreen;
+  const isTutSignIn = state.appSelected === tut.signInScreen;
+  const isHwRegistrationScreen = state.appSelected === hw.registrationScreen;
+  const isHwLoginScreen = state.appSelected === hw.loginScreen;
 
   const onLogin = () =>
+    // TODO: Remove this
     Alert.alert(
       'Credentials',
-      state.email && state.password
-        ? `${state.email} + ${state.password}`
+      isMy && state.myEmail && state.myPassword
+        ? `${state.myEmail} + ${state.myPassword}`
+        : isTutSignUp && state.tutEmail && state.tutPassword // eslint-disable-next-line indent
+        ? `${state.tutEmail} + ${state.tutPassword}` // eslint-disable-next-line indent
+        : isHwRegistrationScreen &&
+          state.hwLogin &&
+          state.hwEmail &&
+          state.hwPassword // eslint-disable-next-line indent
+        ? `${state.hwLogin} + ${state.hwEmail} + ${state.hwPassword}` // eslint-disable-next-line indent
+        : isHwLoginScreen && state.hwEmail && state.hwPassword // eslint-disable-next-line indent
+        ? `${state.hwEmail} + ${state.hwPassword}` // eslint-disable-next-line indent
         : 'Please enter email and password',
     );
-
-  const isMy = state.selected === stateNames.my;
-  const isTut = state.selected === stateNames.tutorial;
-  const isRegistrationScreen = state.selected === stateNames.RegistrationScreen;
-  const isLoginScreen = state.selected === stateNames.LoginScreen;
 
   const appState = { ...state, dispatch, width, height, onLogin };
   const ios = Platform.OS === 'ios' ? 'padding' : null;
@@ -76,9 +104,10 @@ export const App = () => {
           <View style={styles.app}>
             <NavBar />
             {isMy && <My />}
-            {isTut && <Tut />}
-            {isRegistrationScreen && <RegistrationScreen />}
-            {isLoginScreen && <LoginScreen />}
+            {isTutSignUp && <TutRegistrationScreen />}
+            {isTutSignIn && <TutLoginScreen />}
+            {isHwRegistrationScreen && <RegistrationScreen />}
+            {isHwLoginScreen && <LoginScreen />}
           </View>
         </TouchableWithoutFeedback>
       </KeyboardAvoidingView>

@@ -1,7 +1,13 @@
 import { useContext } from 'react';
 import { StyleSheet, Button, View } from 'react-native';
 import { appCtx } from 'context';
-import { actions, theme } from 'common';
+import { types, arch, theme } from 'common';
+
+const { appSelected } = types;
+
+const {
+  screens: { tut, hw, my },
+} = arch;
 
 const styles = StyleSheet.create({
   navBar: {
@@ -20,8 +26,6 @@ const styles = StyleSheet.create({
   },
 });
 
-const { selected, stateNames } = actions;
-
 export const NavBar = () => {
   const { dispatch } = useContext(appCtx);
 
@@ -29,34 +33,43 @@ export const NavBar = () => {
     <View style={styles.navBar}>
       <View style={styles.navBtn}>
         <Button
-          title={stateNames.my}
-          onPress={() => dispatch({ type: selected, payload: stateNames.my })}
+          title={my.myScreen}
+          onPress={() => dispatch({ type: appSelected, payload: my.myScreen })}
         />
       </View>
 
       <View style={styles.navBtn}>
         <Button
-          title={stateNames.tutorial}
+          title={tut.singUpScreen}
           onPress={() =>
-            dispatch({ type: selected, payload: stateNames.tutorial })
+            dispatch({ type: appSelected, payload: tut.singUpScreen })
           }
         />
       </View>
 
       <View style={styles.navBtn}>
         <Button
-          title={stateNames.RegistrationScreen}
+          title={tut.signInScreen}
           onPress={() =>
-            dispatch({ type: selected, payload: stateNames.RegistrationScreen })
+            dispatch({ type: appSelected, payload: tut.signInScreen })
           }
         />
       </View>
 
       <View style={styles.navBtn}>
         <Button
-          title={stateNames.LoginScreen}
+          title={hw.registrationScreen}
           onPress={() =>
-            dispatch({ type: selected, payload: stateNames.LoginScreen })
+            dispatch({ type: appSelected, payload: hw.registrationScreen })
+          }
+        />
+      </View>
+
+      <View style={styles.navBtn}>
+        <Button
+          title={hw.loginScreen}
+          onPress={() =>
+            dispatch({ type: appSelected, payload: hw.loginScreen })
           }
         />
       </View>

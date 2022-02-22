@@ -15,7 +15,16 @@ import {
 } from 'react-native';
 
 import { appCtx } from 'context';
-import { actions, theme } from 'common';
+import { types, arch, theme, UI } from 'common';
+import { AnimatedLabel } from 'components';
+import { labelTransitionValues } from '../LoginScreen';
+
+const {
+  screens: { hw },
+} = arch;
+
+const { hwLogin, hwEmail, hwPassword, hwRegistration, hwError, appSelected } =
+  types;
 
 const images = {
   regBg: require('assets/images/mountain-hut.jpg'),
@@ -26,6 +35,10 @@ const css = StyleSheet.create({
     ios: {},
     android: {},
   }),
+
+  fallback: {
+    textAlign: 'center',
+  },
 
   registrationScreen: {
     flex: 1,
@@ -115,19 +128,19 @@ const css = StyleSheet.create({
     fontSize: 16,
     // top: -28,
     lineHeight: 19,
+    color: theme.colors.lightLighterGrey,
   },
 
   input: {
     height: 50,
-
     paddingHorizontal: 16,
     color: theme.dark.main.bg,
-
     backgroundColor: theme.colors.darkWhite,
     borderWidth: 1,
     borderColor: theme.colors.lightLightGrey,
     borderRadius: 8,
   },
+
   registrationBtn: {
     alignItems: 'center',
     alignContent: 'center',
@@ -136,6 +149,7 @@ const css = StyleSheet.create({
     backgroundColor: theme.colors.orange,
     borderRadius: 100,
   },
+
   registrationBtnLabel: {
     color: theme.colors.white,
     fontFamily: theme.fonts.roboto.regular,
@@ -144,33 +158,79 @@ const css = StyleSheet.create({
   },
 });
 
-const INITIAL_STATE = '';
+const INITIAL_STATE = Object.freeze({
+  emptyString: '',
+  error: null,
+  avatar: 0,
+  focused: {
+    [hwLogin]: false,
+    [hwEmail]: false,
+    [hwPassword]: false,
+  },
+});
 
 export const RegistrationScreen = () => {
   const { dispatch } = useContext(appCtx);
-  const [login, setLogin] = useState(INITIAL_STATE);
-  const [email, setEmail] = useState(INITIAL_STATE);
-  const [password, setPassword] = useState(INITIAL_STATE);
+  const [loginName, setLoginName] = useState(INITIAL_STATE.emptyString);
+  const [mail, setMail] = useState(INITIAL_STATE.emptyString);
+  const [pass, setPass] = useState(INITIAL_STATE.emptyString);
+  const [err, setErr] = useState(INITIAL_STATE.error);
+  const [avatar, setAvatar] = useState(INITIAL_STATE.avatar);
+  const [focused, setFocused] = useState(INITIAL_STATE.focused);
   const { width, height } = useWindowDimensions();
 
-  const addPhoto = () => {
-    // upload user avatar from phone
-    Alert.alert('Fake Placeholder:\nPlease select photo for avatar');
+  if (err) {
+    return <Text style={css.fallback}>{UI.fallback}</Text>;
+  }
+
+  const toggleAvatar = () => {
+    // TODO Kostiantyn Ochenash, till 2022-02-23 24:00: Upload user avatar from phone
+    !avatar && Alert.alert('Fake Placeholder:\nPlease select photo for avatar');
+
+    const newAvatarFromUpload = require('assets/images/logo-react.png');
+
+    setAvatar(avatar ? INITIAL_STATE.avatar : newAvatarFromUpload);
   };
 
-  const onRegistration = () => {
-    dispatch({
-      type: actions.registration,
-      payload: { login, email, password },
-    });
+  const handleRegistration = async () => {
+    try {
+      await dispatch({
+        type: hwRegistration,
+        payload: { [hwLogin]: loginName, [hwEmail]: mail, [hwPassword]: pass },
+      });
 
-    setLogin(INITIAL_STATE);
-    setEmail(INITIAL_STATE);
-    setPassword(INITIAL_STATE);
+      setLoginName(INITIAL_STATE.emptyString);
+      setMail(INITIAL_STATE.emptyString);
+      setPass(INITIAL_STATE.emptyString);
+      // setErr(INITIAL_STATE.error);
+    } catch (error) {
+      setErr(error);
+      dispatch({ type: hwError, payload: error });
+    }
+  };
+
+  const navToSignIn = () => {
+    dispatch({ type: appSelected, payload: hw.loginScreen });
   };
 
   const dynamicBgImage = [css.imageBackground, { width, height }];
 
+  const setIsBlurred = elem => {
+    setFocused(state => ({ ...state, [elem]: false }));
+  };
+
+  const setIsFocused = elem => {
+    setFocused(state => ({ ...state, [elem]: true }));
+  };
+
+  const isFocused = ({ label, value }) =>
+    focused[label] || value ? true : false;
+
+  const dynamicLabel = ({ label, value }) => [
+    css.label,
+    { color: focused[label] ? theme.dark.accent : theme.dark.main.bg },
+    { transform: [{ translateY: isFocused({ label, value }) ? -32 : 0 }] },
+  ];
   return (
     <View style={css.registrationScreen}>
       <ImageBackground style={dynamicBgImage} source={images.regBg} />
@@ -180,9 +240,12 @@ export const RegistrationScreen = () => {
           <View style={css.regForm}>
             <View style={css.thumb}>
               <View>
-                <Image style={css.avatar} />
-                <TouchableOpacity style={css.addPhotoBtn} onPress={addPhoto}>
-                  <Text>+</Text>
+                <Image source={avatar} style={css.avatar} />
+                <TouchableOpacity
+                  style={css.addPhotoBtn}
+                  onPress={toggleAvatar}
+                >
+                  <Text>{avatar ? 'x' : '+'}</Text>
                 </TouchableOpacity>
               </View>
             </View>
@@ -191,57 +254,71 @@ export const RegistrationScreen = () => {
 
             <View style={css.field}>
               <TextInput
-                value={login}
-                onChange={setLogin}
+                value={loginName}
+                onChangeText={setLoginName}
                 style={css.input}
                 maxLength={40}
-                placeholder="Login"
-                placeholderTextColor={theme.colors.lightLighterGrey}
+                textContentType="username"
+                autoComplete="username-new"
+                onBlur={() => setIsBlurred([hwLogin])}
+                onFocus={() => setIsFocused([hwLogin])}
               />
-              {/* <Text style={css.label}>Login</Text> */}
+
+              <AnimatedLabel
+                isFocusedElem={isFocused({ label: hwLogin, value: loginName })}
+                animValues={labelTransitionValues}
+                style={dynamicLabel({ label: hwLogin, value: loginName })}
+                initValue={0}
+              >
+                <Text style={css.animatedText}>Login</Text>
+              </AnimatedLabel>
             </View>
 
             <View style={css.field}>
               <TextInput
-                value={email}
-                onChange={setEmail}
+                value={mail}
+                onChangeText={setMail}
                 style={css.input}
                 maxLength={40}
-                placeholder="Email"
-                placeholderTextColor={theme.colors.lightLighterGrey}
+                textContentType="emailAddress"
+                autoComplete="email"
+                onBlur={() => setIsBlurred([hwEmail])}
+                onFocus={() => setIsFocused([hwEmail])}
               />
-              {/* <Text style={css.label}>Email</Text> */}
+              <Text style={dynamicLabel([hwEmail])}>Email</Text>
             </View>
 
             <View style={css.field}>
               <TextInput
-                value={password}
-                onChange={setPassword}
+                value={pass}
+                onChangeText={setPass}
                 style={css.input}
                 secureTextEntry={true}
                 maxLength={40}
-                placeholder="Password"
-                placeholderTextColor={theme.colors.lightLighterGrey}
+                textContentType="newPassword"
+                autoComplete="password-new"
+                onBlur={() => setIsBlurred([hwPassword])}
+                onFocus={() => setIsFocused([hwPassword])}
               />
-              {/* <Text style={css.label}>Password</Text> */}
+              <Text style={dynamicLabel([hwPassword])}>Password</Text>
             </View>
 
             <View>
               <TouchableOpacity
                 style={css.registrationBtn}
-                onPress={onRegistration}
+                onPress={handleRegistration}
               >
                 <Text style={css.registrationBtnLabel}>Create account</Text>
               </TouchableOpacity>
 
-              <View style={{ flexDirection: 'row' }}>
+              <View style={{ flexDirection: 'row', marginTop: 20 }}>
                 <Text style={{ marginRight: 12 }}>
                   Already have the account?
                 </Text>
 
                 <TouchableOpacity
                   style={css.registrationBtn}
-                  onPress={addPhoto}
+                  onPress={navToSignIn}
                 >
                   <Text>Sign In</Text>
                 </TouchableOpacity>

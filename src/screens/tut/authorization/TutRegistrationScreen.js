@@ -11,12 +11,14 @@ import {
   ScrollView,
 } from 'react-native';
 
-import { actions, theme } from 'common';
+import { types, theme, UI } from 'common';
 import { appCtx } from 'context';
 
 const images = {
   tutBg: require('assets/images/stars-on-night.jpg'),
 };
+
+const { tutNickname, tutEmail, tutPassword, tutRegistration } = types;
 
 const styles = StyleSheet.create({
   tut: {
@@ -42,6 +44,7 @@ const styles = StyleSheet.create({
     color: theme.colors.green,
     fontSize: 30,
   },
+
   innerBox: {
     borderWidth: 1,
     borderColor: theme.colors.red,
@@ -49,6 +52,21 @@ const styles = StyleSheet.create({
     borderRadius: 10,
     width: 300,
   },
+
+  form: {
+    marginHorizontal: 40,
+    marginBottom: 20,
+    maxWidth: 480,
+    minWidth: 300,
+  },
+
+  inputTitle: {
+    marginBottom: 10,
+    fontSize: 18,
+    color: theme.dark.main.fg,
+  },
+
+  field: { marginTop: 20 },
 
   input: {
     borderWidth: 1,
@@ -60,17 +78,7 @@ const styles = StyleSheet.create({
     paddingHorizontal: 12,
     fontSize: 21,
   },
-  form: {
-    marginHorizontal: 40,
-    marginBottom: 20,
-    maxWidth: 480,
-    minWidth: 300,
-  },
-  inputTitle: {
-    marginBottom: 10,
-    fontSize: 18,
-    color: theme.dark.main.fg,
-  },
+
   btn: {
     justifyContent: 'center',
     alignItems: 'center',
@@ -92,7 +100,10 @@ const styles = StyleSheet.create({
         backgroundColor: theme.colors.royalBlue,
         borderColor: theme.colors.transparent,
       },
-      default: {},
+      default: {
+        backgroundColor: theme.colors.royalBlue,
+        borderColor: theme.colors.transparent,
+      },
     }),
   },
 
@@ -100,10 +111,12 @@ const styles = StyleSheet.create({
     fontSize: 21,
     color: Platform.OS === 'ios' ? theme.colors.royalBlue : theme.dark.main.fg,
   },
+
   header: {
     alignItems: 'center',
     marginBottom: 100,
   },
+
   headerTitle: {
     fontSize: 30,
     fontWeight: '400',
@@ -114,18 +127,35 @@ const styles = StyleSheet.create({
 
 const INITIAL_STATE = '';
 
-export const Tut = () => {
+export const TutRegistrationScreen = () => {
   const { width, height, dispatch } = useContext(appCtx);
+  const [nickname, setNickname] = useState(INITIAL_STATE);
   const [email, setEmail] = useState(INITIAL_STATE);
   const [password, setPassword] = useState(INITIAL_STATE);
+  const [error, setError] = useState(INITIAL_STATE);
 
-  const handleSubmit = () => {
+  if (error) {
+    return <Text>{UI.fallback}</Text>;
+  }
+
+  const handleSubmit = async () => {
     // Keyboard.dismiss();
+    try {
+      await dispatch({
+        type: tutRegistration,
+        payload: {
+          [tutNickname]: nickname,
+          [tutEmail]: email,
+          [tutPassword]: password,
+        },
+      });
 
-    dispatch({ type: actions.email, payload: email });
-    dispatch({ type: actions.password, payload: password });
-    setEmail(INITIAL_STATE);
-    setPassword(INITIAL_STATE);
+      setNickname(INITIAL_STATE);
+      setEmail(INITIAL_STATE);
+      setPassword(INITIAL_STATE);
+    } catch (error) {
+      setError(error);
+    }
   };
 
   const bgImageDynamic = [styles.image, { width, height }];
@@ -141,7 +171,20 @@ export const Tut = () => {
           <View style={styles.form}>
             <View style={styles.header}>
               <Text style={styles.headerTitle}>Hello</Text>
-              <Text style={styles.headerTitle}>Welcome back</Text>
+              <Text style={styles.headerTitle}>Sign up to get started</Text>
+              {/* <Text style={styles.headerTitle}>Welcome back</Text> */}
+            </View>
+
+            <View>
+              <Text style={styles.inputTitle}>NICKNAME</Text>
+
+              <TextInput
+                value={nickname}
+                onChangeText={setNickname}
+                style={styles.input}
+                textAlign="center"
+                textContentType="nickname"
+              />
             </View>
 
             <View>
@@ -153,10 +196,11 @@ export const Tut = () => {
                 keyboardType="email-address"
                 style={styles.input}
                 textAlign="center"
+                textContentType="emailAddress"
               />
             </View>
 
-            <View style={{ marginTop: 20 }}>
+            <View style={styles.field}>
               <Text style={styles.inputTitle}>PASSWORD</Text>
 
               <TextInput
@@ -165,6 +209,7 @@ export const Tut = () => {
                 secureTextEntry={true}
                 style={styles.input}
                 textAlign="center"
+                textContentType="newPassword"
               />
             </View>
 

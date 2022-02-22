@@ -1,4 +1,4 @@
-import { Animated, Easing, Text } from 'react-native';
+import { Animated, Easing } from 'react-native';
 import PropTypes from 'prop-types';
 import { useEffect, useRef } from 'react';
 
